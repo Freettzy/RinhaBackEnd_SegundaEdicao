@@ -1,0 +1,11 @@
+@RinhaBackEnd_SegundaEdicao_HostAddress = http://localhost:5183
+
+GET {{RinhaBackEnd_SegundaEdicao_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{RinhaBackEnd_SegundaEdicao_HostAddress}}/todos/1
+Accept: application/json
+
+###
