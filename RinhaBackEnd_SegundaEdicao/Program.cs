@@ -3,12 +3,10 @@ using System.Text.Json.Serialization;
 namespace RinhaBackEnd_SegundaEdicao;
 public class Program
 {
-    public static void Main(string[] args)
-    {
+    public static void Main(string[] args) {
         var builder = WebApplication.CreateSlimBuilder(args);
 
-        builder.Services.ConfigureHttpJsonOptions(options =>
-        {
+        builder.Services.ConfigureHttpJsonOptions(options => {
             options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
         });
 
@@ -22,9 +20,8 @@ public class Program
             new(5, "Clean the car", DateOnly.FromDateTime(DateTime.Now.AddDays(2)))
         };
 
-        var todosApi = app.MapGroup("/todos");
-        todosApi.MapGet("/", () => sampleTodos);
-        todosApi.MapGet("/{id}", (int id) =>
+        var todosApi = app.MapGroup("/clientes");
+        todosApi.MapGet("/{id}/transacoes", (int id) =>
             sampleTodos.FirstOrDefault(a => a.Id == id) is { } todo
                 ? Results.Ok(todo)
                 : Results.NotFound());
@@ -33,9 +30,8 @@ public class Program
     }
 }
 
-public record Todo(int Id, string? Title, DateOnly? DueBy = null, bool IsComplete = false);
 
-[JsonSerializable(typeof(Todo[]))]
+[JsonSerializable(typeof(Transacao[]))]
 internal partial class AppJsonSerializerContext : JsonSerializerContext
 {
 
